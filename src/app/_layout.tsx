@@ -1,4 +1,5 @@
 import React from 'react';
+import '../global.css';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { HabitProvider } from '@/context/HabitContext';
