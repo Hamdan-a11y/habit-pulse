@@ -48,36 +48,54 @@ export const INITIAL_HABITS: Habit[] = [
   },
 ];
 
+// Helper for safe web + native storage access
+const safeGetItem = async (key: string): Promise<string | null> => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return window.localStorage.getItem(key);
+    }
+    return await AsyncStorage.getItem(key);
+  } catch (error) {
+    console.warn('Storage read fallback:', error);
+    return null;
+  }
+};
+
+const safeSetItem = async (key: string, value: string): Promise<void> => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(key, value);
+      return;
+    }
+    await AsyncStorage.setItem(key, value);
+  } catch (error) {
+    console.warn('Storage write fallback:', error);
+  }
+};
+
 export const loadStoredHabits = async (): Promise<Habit[]> => {
   try {
-    const data = await AsyncStorage.getItem(HABITS_STORAGE_KEY);
+    const data = await safeGetItem(HABITS_STORAGE_KEY);
     if (data) {
       return JSON.parse(data);
     }
-    // Return initial default habits on first launch
-    await saveStoredHabits(INITIAL_HABITS);
+    await safeSetItem(HABITS_STORAGE_KEY, JSON.stringify(INITIAL_HABITS));
     return INITIAL_HABITS;
   } catch (error) {
-    console.error('Error loading stored habits:', error);
     return INITIAL_HABITS;
   }
 };
 
 export const saveStoredHabits = async (habits: Habit[]): Promise<void> => {
-  try {
-    await AsyncStorage.setItem(HABITS_STORAGE_KEY, JSON.stringify(habits));
-  } catch (error) {
-    console.error('Error saving stored habits:', error);
-  }
+  await safeSetItem(HABITS_STORAGE_KEY, JSON.stringify(habits));
 };
 
 export const loadStoredHabitLogs = async (): Promise<HabitLogs> => {
   try {
-    const data = await AsyncStorage.getItem(LOGS_STORAGE_KEY);
+    const data = await safeGetItem(LOGS_STORAGE_KEY);
     if (data) {
       return JSON.parse(data);
     }
-    // Pre-populate today & yesterday for starter habits to show off streaks right away!
     const today = new Date().toISOString().split('T')[0];
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
     const initialLogs: HabitLogs = {
@@ -86,18 +104,13 @@ export const loadStoredHabitLogs = async (): Promise<HabitLogs> => {
       'habit-3': [today],
       'habit-4': [yesterday, today],
     };
-    await saveStoredHabitLogs(initialLogs);
+    await safeSetItem(LOGS_STORAGE_KEY, JSON.stringify(initialLogs));
     return initialLogs;
   } catch (error) {
-    console.error('Error loading stored logs:', error);
     return {};
   }
 };
 
 export const saveStoredHabitLogs = async (logs: HabitLogs): Promise<void> => {
-  try {
-    await AsyncStorage.setItem(LOGS_STORAGE_KEY, JSON.stringify(logs));
-  } catch (error) {
-    console.error('Error saving stored logs:', error);
-  }
+  await safeSetItem(LOGS_STORAGE_KEY, JSON.stringify(logs));
 };

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { Category, Habit, HabitLogs, HabitStats } from '@/types/habit';
 import {
+  INITIAL_HABITS,
   loadStoredHabits,
   saveStoredHabits,
   loadStoredHabitLogs,
@@ -27,25 +28,33 @@ interface HabitContextType {
 const HabitContext = createContext<HabitContextType | undefined>(undefined);
 
 export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [habits, setHabits] = useState<Habit[]>([]);
+  const [habits, setHabits] = useState<Habit[]>(INITIAL_HABITS);
   const [logs, setLogs] = useState<HabitLogs>({});
   const [selectedCategory, setSelectedCategory] = useState<Category>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getTodayFormatted = useCallback(() => {
     return new Date().toISOString().split('T')[0];
   }, []);
 
-  // Load initial data from AsyncStorage
+  // Load initial data from storage asynchronously
   useEffect(() => {
     const initData = async () => {
-      setIsLoading(true);
-      const loadedHabits = await loadStoredHabits();
-      const loadedLogs = await loadStoredHabitLogs();
-      setHabits(loadedHabits);
-      setLogs(loadedLogs);
-      setIsLoading(false);
+      try {
+        const loadedHabits = await loadStoredHabits();
+        const loadedLogs = await loadStoredHabitLogs();
+        if (loadedHabits && loadedHabits.length > 0) {
+          setHabits(loadedHabits);
+        }
+        if (loadedLogs) {
+          setLogs(loadedLogs);
+        }
+      } catch (error) {
+        console.warn('Storage initialization error:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     initData();
   }, []);
