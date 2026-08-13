@@ -6,9 +6,9 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useHabits } from '@/context/HabitContext';
 import { COLORS, RADIUS, SPACING } from '@/constants/theme';
+import { AppIcon } from '@/components/AppIcon';
 
 export default function StatsScreen() {
   const { habits, logs, getOverallStats, isCompletedOnDate, calculateStreak } = useHabits();
@@ -43,7 +43,7 @@ export default function StatsScreen() {
           {/* Longest Streak Card */}
           <View style={styles.statCard}>
             <View style={[styles.statIconCircle, { backgroundColor: COLORS.warningLight }]}>
-              <Ionicons name="flame" size={22} color={COLORS.warning} />
+              <AppIcon name="flame" size={22} color={COLORS.warning} />
             </View>
             <Text style={styles.statValue}>{stats.longestStreak} days</Text>
             <Text style={styles.statLabel}>Best Active Streak</Text>
@@ -52,7 +52,7 @@ export default function StatsScreen() {
           {/* Active Streaks Card */}
           <View style={styles.statCard}>
             <View style={[styles.statIconCircle, { backgroundColor: COLORS.primaryLight }]}>
-              <Ionicons name="flash" size={22} color={COLORS.primary} />
+              <AppIcon name="flash" size={22} color={COLORS.primary} />
             </View>
             <Text style={styles.statValue}>{stats.activeStreaksCount}</Text>
             <Text style={styles.statLabel}>Active Routines</Text>
@@ -61,7 +61,7 @@ export default function StatsScreen() {
           {/* Completion Rate Card */}
           <View style={styles.statCard}>
             <View style={[styles.statIconCircle, { backgroundColor: COLORS.successLight }]}>
-              <Ionicons name="trophy" size={22} color={COLORS.success} />
+              <AppIcon name="trophy" size={22} color={COLORS.success} />
             </View>
             <Text style={styles.statValue}>{stats.completionRatePercentage}%</Text>
             <Text style={styles.statLabel}>Today's Rate</Text>
@@ -70,7 +70,7 @@ export default function StatsScreen() {
           {/* Total Habits Card */}
           <View style={styles.statCard}>
             <View style={[styles.statIconCircle, { backgroundColor: 'rgba(59, 130, 246, 0.15)' }]}>
-              <Ionicons name="list" size={22} color="#3B82F6" />
+              <AppIcon name="list" size={22} color="#3B82F6" />
             </View>
             <Text style={styles.statValue}>{stats.totalHabits}</Text>
             <Text style={styles.statLabel}>Total Habits</Text>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { COLORS, RADIUS, SPACING } from '@/constants/theme';
+import { COLORS, RADIUS } from '@/constants/theme';
+import { AppIcon } from './AppIcon';
 
 interface StreakBadgeProps {
   streak: number;
@@ -11,7 +11,7 @@ export const StreakBadge: React.FC<StreakBadgeProps> = ({ streak }) => {
   if (streak === 0) {
     return (
       <View style={[styles.badge, styles.inactiveBadge]}>
-        <Ionicons name="flame-outline" size={14} color={COLORS.textSubtle} />
+        <AppIcon name="flame-outline" size={14} color={COLORS.textSubtle} />
         <Text style={styles.inactiveText}>0</Text>
       </View>
     );
@@ -19,7 +19,7 @@ export const StreakBadge: React.FC<StreakBadgeProps> = ({ streak }) => {
 
   return (
     <View style={[styles.badge, styles.activeBadge]}>
-      <Ionicons name="flame" size={15} color={COLORS.warning} />
+      <AppIcon name="flame" size={15} color={COLORS.warning} />
       <Text style={styles.activeText}>{streak}d</Text>
     </View>
   );

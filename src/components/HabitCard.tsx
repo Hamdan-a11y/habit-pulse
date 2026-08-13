@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { COLORS, RADIUS, SPACING } from '@/constants/theme';
 import { Habit } from '@/types/habit';
 import { StreakBadge } from './StreakBadge';
+import { AppIcon } from './AppIcon';
 
 interface HabitCardProps {
   habit: Habit;
@@ -42,7 +42,7 @@ export const HabitCard: React.FC<HabitCardProps> = ({
         <View style={styles.headerRow}>
           <View style={styles.titleContainer}>
             <View style={[styles.iconContainer, { backgroundColor: `${habit.color}20` }]}>
-              <Ionicons name={(habit.icon || 'star') as any} size={18} color={habit.color} />
+              <AppIcon name={habit.icon || 'star'} size={18} color={habit.color} />
             </View>
             <View style={styles.textContainer}>
               <Text
@@ -64,7 +64,7 @@ export const HabitCard: React.FC<HabitCardProps> = ({
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             style={styles.deleteBtn}
           >
-            <Ionicons name="trash-outline" size={16} color={COLORS.textSubtle} />
+            <AppIcon name="trash-outline" size={16} color={COLORS.textSubtle} />
           </TouchableOpacity>
         </View>
 
@@ -80,7 +80,7 @@ export const HabitCard: React.FC<HabitCardProps> = ({
               isCompleted ? styles.checkboxChecked : styles.checkboxUnchecked,
             ]}
           >
-            <Ionicons
+            <AppIcon
               name={isCompleted ? 'checkmark' : 'add'}
               size={18}
               color={isCompleted ? '#FFFFFF' : COLORS.textMuted}

@@ -9,7 +9,6 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useHabits } from '@/context/HabitContext';
 import { COLORS, RADIUS, SPACING } from '@/constants/theme';
 import { ProgressBar } from '@/components/ProgressBar';
@@ -17,6 +16,7 @@ import { CategoryFilter } from '@/components/CategoryFilter';
 import { HabitCard } from '@/components/HabitCard';
 import { EmptyState } from '@/components/EmptyState';
 import { AddHabitModal } from '@/components/AddHabitModal';
+import { AppIcon } from '@/components/AppIcon';
 import { Habit } from '@/types/habit';
 
 export default function DashboardScreen() {
@@ -90,13 +90,13 @@ export default function DashboardScreen() {
           style={styles.addHeaderBtn}
           onPress={() => setIsModalOpen(true)}
         >
-          <Ionicons name="add" size={24} color="#FFFFFF" />
+          <AppIcon name="add" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={18} color={COLORS.textSubtle} style={styles.searchIcon} />
+        <AppIcon name="search-outline" size={18} color={COLORS.textSubtle} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search habits..."
@@ -106,7 +106,7 @@ export default function DashboardScreen() {
         />
         {searchQuery ? (
           <TouchableOpacity onPress={() => setSearchQuery('')}>
-            <Ionicons name="close-circle" size={18} color={COLORS.textSubtle} />
+            <AppIcon name="close-circle" size={18} color={COLORS.textSubtle} />
           </TouchableOpacity>
         ) : null}
       </View>
@@ -156,7 +156,7 @@ export default function DashboardScreen() {
         activeOpacity={0.8}
         onPress={() => setIsModalOpen(true)}
       >
-        <Ionicons name="add" size={28} color="#FFFFFF" />
+        <AppIcon name="add" size={28} color="#FFFFFF" />
       </TouchableOpacity>
 
       {/* Add Habit Modal */}

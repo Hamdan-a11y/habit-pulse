@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity, Text, StyleSheet, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { CATEGORIES, COLORS, RADIUS, SPACING } from '@/constants/theme';
 import { Category } from '@/types/habit';
+import { AppIcon } from './AppIcon';
 
 interface CategoryFilterProps {
   selected: Category;
@@ -29,8 +29,8 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({ selected, onSele
                 isActive ? { backgroundColor: cat.color } : styles.inactiveChip,
               ]}
             >
-              <Ionicons
-                name={cat.iconName as any}
+              <AppIcon
+                name={cat.iconName}
                 size={16}
                 color={isActive ? '#FFFFFF' : COLORS.textMuted}
                 style={styles.icon}

@@ -10,9 +10,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { CATEGORIES, COLORS, RADIUS, SPACING } from '@/constants/theme';
 import { Category } from '@/types/habit';
+import { AppIcon } from './AppIcon';
 
 interface AddHabitModalProps {
   visible: boolean;
@@ -79,7 +79,7 @@ export const AddHabitModal: React.FC<AddHabitModalProps> = ({
           <View style={styles.header}>
             <Text style={styles.title}>Create New Habit</Text>
             <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
-              <Ionicons name="close" size={24} color={COLORS.textMuted} />
+              <AppIcon name="close" size={24} color={COLORS.textMuted} />
             </TouchableOpacity>
           </View>
 
@@ -122,8 +122,8 @@ export const AddHabitModal: React.FC<AddHabitModalProps> = ({
                         : styles.inactiveCategory,
                     ]}
                   >
-                    <Ionicons
-                      name={cat.iconName as any}
+                    <AppIcon
+                      name={cat.iconName}
                       size={16}
                       color={isSelected ? '#FFFFFF' : COLORS.textMuted}
                     />
@@ -157,8 +157,8 @@ export const AddHabitModal: React.FC<AddHabitModalProps> = ({
                       },
                     ]}
                   >
-                    <Ionicons
-                      name={icon as any}
+                    <AppIcon
+                      name={icon}
                       size={20}
                       color={isSelected ? COLORS.primary : COLORS.textMuted}
                     />

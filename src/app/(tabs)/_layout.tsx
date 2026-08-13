@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '@/constants/theme';
+import { AppIcon } from '@/components/AppIcon';
 
 export default function TabLayout() {
   return (
@@ -28,7 +28,7 @@ export default function TabLayout() {
         options={{
           title: 'Today',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="checkbox-outline" size={size} color={color} />
+            <AppIcon name="checkbox-outline" size={size} color={color} />
           ),
         }}
       />
@@ -37,7 +37,7 @@ export default function TabLayout() {
         options={{
           title: 'Insights',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="analytics-outline" size={size} color={color} />
+            <AppIcon name="analytics-outline" size={size} color={color} />
           ),
         }}
       />

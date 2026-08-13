@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { COLORS, RADIUS, SPACING } from '@/constants/theme';
+import { AppIcon } from './AppIcon';
 
 interface EmptyStateProps {
   title: string;
@@ -19,14 +19,14 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.iconCircle}>
-        <Ionicons name="sparkles-outline" size={32} color={COLORS.primary} />
+        <AppIcon name="sparkles-outline" size={32} color={COLORS.primary} />
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
 
       {actionText && onAction ? (
         <TouchableOpacity style={styles.button} onPress={onAction} activeOpacity={0.8}>
-          <Ionicons name="add-circle-outline" size={18} color="#FFFFFF" style={styles.btnIcon} />
+          <AppIcon name="add-circle-outline" size={18} color="#FFFFFF" style={styles.btnIcon} />
           <Text style={styles.buttonText}>{actionText}</Text>
         </TouchableOpacity>
       ) : null}
